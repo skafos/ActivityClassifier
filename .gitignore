@@ -1,0 +1,76 @@
+# Xcode
+build/*
+DerivedData/
+*.pbxuser
+*.xcscmblueprint
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+UserInterfaceState.xcuserstate
+!default.xcworkspace
+profile
+*.moved-aside
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/UserInterfaceState.xcuserstate
+!default.xcworkspace
+*.xcworkspace/xcshareddata/
+*.xccheckout
+
+
+### Xcode ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+### Xcode Patch ###
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# End of https://www.gitignore.io/api/xcode
+
+.DS_Store
+Builds/*
+DTS*
+# OS X Finder
+# Xcode per-user config
+*.mode1
+*.perspective
+xcuserdata
+# Build products
+build/
+*.o
+*.LinkFileList
+*.hmap
+# Automatic backup files
+*~.nib/
+*.swp
+*~
+*.dat
+*.dep
+# Cocoapods
+Pods
+Podfile.lock
+.gitmodules
+# AppCode specific files
+.idea/
+*.iml
+
+# fastlane specific
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/metadata
