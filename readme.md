@@ -2,6 +2,8 @@
 
 ActivityClassifier is an example app that uses the Skafos platform for CoreML model integration and delivery on an iPhone. It's a good starting point for diving in, or a good reference for integrating Skafos in to your own app. Skafos is a platform that streamlines CoreML model updates (assets) without needing to submit a new version to the app store everytime a new model is ready for use.
 
+Checkout our [blog series](https://medium.com/skafosai/activity-classification-for-watchos-part-3-b5a60ac6707f) where we talk more about data collection, model training, and detail the design of this simple example!
+
 This ActivityClassifier example app specifically integrates and deploys an Activity Classifier machine learning model. [Activity Classification](https://docs.metismachine.io/docs/activity-classification) is a type of machine learning that can identify human activities from device sensor data. The example model provided in this app will try to identify walking, sitting, versus standing. For more details about how to use and customize this model, please navigate to the [Skafos Turi Activity Classifier repo on github](https://github.com/skafos/TuriActivityClassifier). 
 
 <br>
