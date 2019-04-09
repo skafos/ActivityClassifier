@@ -1,15 +1,11 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '12.0'
-
 inhibit_all_warnings!
+use_frameworks!
 
 target 'ActivityClassifier' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
   # Pods for ActivityClassifier
   pod 'Skafos', '2.5.7'
   pod 'SnapKit'
+
 
   target 'ActivityClassifierTests' do
     inherit! :search_paths
@@ -21,4 +17,9 @@ target 'ActivityClassifier' do
     # Pods for testing
   end
 
+end
+
+target 'Watch Extension' do
+  # Pods for Watch Extention of Activity Classifier
+  pod 'Skafos', '2.5.7'
 end

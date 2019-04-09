@@ -1,43 +1,25 @@
 //
-//  ViewController.swift
-//  ActivityClassifier
+//  WatchView.swift
+//  Watch Extension
 //
-//  Created by Skafos.ai on 4/4/19.
+//  Created by Skafos.ai on 4/9/19.
 //  Copyright © 2019 Skafos.ai. All rights reserved.
 //
 
-import UIKit
+import WatchKit
+import Foundation
 import Skafos
-import CoreML
-import SnapKit
 
 
-class ViewController: UIViewController {
-    
-    // Initialize the label that will get updated
-    private lazy var label:UILabel = {
-        let label           = UILabel()
-        label.text          = ""
-        label.font          = label.font.withSize(35)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.textColor = .white
-        
-        self.view.addSubview(label)
-        return label
-    }()
-    
-    // Initialize the activity modeling class and asset name from Skafos
-    lazy var activity = Activity(label: label)
+class WatchView: WKInterfaceController {
+
+    @IBOutlet var activityLabel: WKInterfaceLabel!
+    lazy var activity = WatchActivity(activityLabel: activityLabel)
     let assetName:String = "ActivityClassifier"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .black
-        self.title = "Activity Classifier"
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
-        // Make sure nothing is running through the model yet
         activity.stopDeviceMotion()
         
         // Skafos load cached asset
@@ -55,29 +37,29 @@ class ViewController: UIViewController {
             // Start running the app
             self.activity.startDeviceMotion()
         }
-
+        
         /***
          Listen for changes in an asset with the given name. A notification is triggered anytime an
          asset is downloaded from the servers. This can happen in response to a push notification
          or when you manually call Skafos.load with a tag like above.
          ***/
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadModel(_:)), name: Skafos.Notifications.assetUpdateNotification(assetName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WatchView.reloadModel(_:)), name: Skafos.Notifications.assetUpdateNotification(assetName), object: nil)
     }
 
-    override func viewDidLayoutSubviews() {
-        label.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(180)
-            make.right.left.equalToSuperview()
-            make.height.equalTo(100)
-        }
-    
-        super.viewDidLayoutSubviews()
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+    }
+
+    override func didDeactivate() {
+        // This method is called when watch view controller is no longer visible
+        super.didDeactivate()
     }
     
     @objc func reloadModel(_ notification:Notification) {
         // Stop device motion briefly
         activity.stopDeviceMotion()
-       
+        
         // Load new asset
         Skafos.load(asset: assetName) { (error, asset) in
             // Log the asset in the console
@@ -97,7 +79,5 @@ class ViewController: UIViewController {
             self.activity.startDeviceMotion()
         }
     }
+
 }
-
-
-
