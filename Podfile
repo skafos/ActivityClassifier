@@ -8,7 +8,7 @@ target 'ActivityClassifier' do
   use_frameworks!
 
   # Pods for ActivityClassifier
-  pod 'Skafos', '2.5.7'
+  pod 'Skafos', '4.1.1'
   pod 'SnapKit'
 
   target 'ActivityClassifierTests' do

@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     
     // Initialize the model, layers, and prediction window
     private let classifier = ActivityClassifier()
-    private let assetName:String = "ActivityClassifier"
+    private let modelName:String = "ActivityClassifier"
     var currentIndexInPredictionWindow = 0
     let predictionWindowDataArray = try? MLMultiArray(shape: [1, ModelConstants.predictionWindowSize, ModelConstants.numOfFeatures] as [NSNumber], dataType: MLMultiArrayDataType.double)
     var lastHiddenOutput = try? MLMultiArray(shape: [ModelConstants.hiddenInLength as NSNumber], dataType: MLMultiArrayDataType.double)
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         
         // Skafos load cached asset
         // If you pass in a tag, Skafos will make a network request to fetch the asset with that tag
-        Skafos.load(asset: assetName, tag: "latest") { (error, asset) in
+        Skafos.load(asset: modelName) { (error, asset) in
             // Log the asset in the console
             console.info(asset)
             guard error == nil, let model = asset.model else {
@@ -69,18 +69,10 @@ class ViewController: UIViewController {
             }
             // Assign model to the classifier class
             self.classifier.model = model
-            
-            // Start running the app
-            self.startDeviceMotion()
         }
-
-        
-        /***
-         Listen for changes in an asset with the given name. A notification is triggered anytime an
-         asset is downloaded from the servers. This can happen in response to a push notification
-         or when you manually call Skafos.load with a tag like above.
-         ***/
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reloadModel(_:)), name: Skafos.Notifications.assetUpdateNotification(assetName), object: nil)
+      
+        // Start running the app
+        self.startDeviceMotion()
     }
     
     func stopDeviceMotion() {
@@ -163,30 +155,4 @@ class ViewController: UIViewController {
     
         super.viewDidLayoutSubviews()
     }
-    
-    @objc func reloadModel(_ notification:Notification) {
-        // Stop device motion briefly
-        stopDeviceMotion()
-       
-        // Load new asset
-        Skafos.load(asset: assetName) { (error, asset) in
-            // Log the asset in the console
-            console.info(asset)
-            guard error == nil else {
-                console.error("Skafos load asset error: \(String(describing: error))")
-                return
-            }
-            guard let model = asset.model else {
-                console.info("No model available in the asset")
-                return
-            }
-            // Assign model to the classifier class
-            self.classifier.model = model
-            // Start running the app
-            self.startDeviceMotion()
-        }
-    }
 }
-
-
-
