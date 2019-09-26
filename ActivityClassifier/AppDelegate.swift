@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Skafos publishable key is required
         // You can find it under "app settings" in your project on the Skafos dashboard
-        Skafos.initialize("<YOUR PUBLISHABLE KEY>")
+      Skafos.initialize("insert here", swizzle: true)
         
-        return true
+      return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
